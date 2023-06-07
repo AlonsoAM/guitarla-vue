@@ -9,7 +9,7 @@ onMounted(() => {
   guitarras.value = db;
 });
 
-// const incrementar = () => alert("Diste click");
+const agregarCarrito = () => console.log("agregando...");
 </script>
 
 <template>
@@ -113,6 +113,7 @@ onMounted(() => {
         v-for="guitarra in guitarras"
         :key="guitarra.id"
         :guitarra="guitarra"
+        @agregar-carrito="agregarCarrito"
       />
     </div>
   </main>
