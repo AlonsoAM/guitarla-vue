@@ -17,6 +17,7 @@ const agregarCarrito = (guitarra) => {
     (producto) => producto.id === guitarra.id
   );
   if (existeEnCarrito >= 0) {
+    if (carrito.value[existeEnCarrito].cantidad >= 5) return;
     carrito.value[existeEnCarrito].cantidad++;
   } else {
     guitarra.cantidad = 1;
