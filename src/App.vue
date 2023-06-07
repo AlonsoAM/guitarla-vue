@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { db } from "./data/guitarras";
 import Guitarra from "./components/Guitarras.vue";
 import Header from "./components/Header.vue";
@@ -8,6 +8,16 @@ import Footer from "./components/Footer.vue";
 const guitarras = ref([]);
 const carrito = ref([]);
 const guitarra = ref({});
+
+watch(
+  carrito,
+  () => {
+    guardarLocalStorage();
+  },
+  {
+    deep: true,
+  }
+);
 
 onMounted(() => {
   guitarras.value = db;
@@ -32,33 +42,24 @@ const agregarCarrito = (guitarra) => {
     guitarra.cantidad = 1;
     carrito.value.push(guitarra);
   }
-
-  guardarLocalStorage();
 };
 
 const decrementarCantidad = (id) => {
   const index = carrito.value.findIndex((producto) => producto.id === id);
   if (carrito.value[index].cantidad <= 1) return;
   carrito.value[index].cantidad--;
-  guardarLocalStorage();
 };
 
 const incrementarCantidad = (id) => {
   const index = carrito.value.findIndex((producto) => producto.id === id);
   if (carrito.value[index].cantidad >= 5) return;
   carrito.value[index].cantidad++;
-  guardarLocalStorage();
 };
 
-const eliminarProducto = (id) => {
-  carrito.value = carrito.value.filter((el) => el.id !== id);
-  guardarLocalStorage();
-};
+const eliminarProducto = (id) =>
+  (carrito.value = carrito.value.filter((el) => el.id !== id));
 
-const vaciarCarrito = () => {
-  carrito.value = [];
-  guardarLocalStorage();
-};
+const vaciarCarrito = () => (carrito.value = []);
 </script>
 
 <template>
