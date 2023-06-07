@@ -8,6 +8,8 @@ const guitarras = ref([]);
 onMounted(() => {
   guitarras.value = db;
 });
+
+// const incrementar = () => alert("Diste click");
 </script>
 
 <template>
